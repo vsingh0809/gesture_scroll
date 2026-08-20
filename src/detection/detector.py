@@ -60,6 +60,7 @@ class HandDetector:
         return DetectionResult(
             hand_detected=True,
             landmarks=landmarks,
+            
         )
 
     def draw_landmarks(self, frame, mediapipe_result):
