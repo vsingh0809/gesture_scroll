@@ -12,9 +12,23 @@ Deliverable:
 - Working project skeleton
 
 Status:
-- TODO
+- Completed
 
 ---
+## Current Sprint
+
+Feature:
+Webcam Feed
+
+Goal:
+Access default webcam and display live video.
+
+Acceptance Criteria:
+- Webcam opens
+- Live feed displayed
+- Exit with 'q'
+- Handle camera unavailable error
+
 
 ## Milestone 2 - Webcam Feed
 
@@ -107,14 +121,25 @@ Status:
 - TODO
 
 ## feature-branches
+## Source Control Strategy
+
+Branches:
+
 main
-│
 develop
-│
-├── feature/project-setup
-├── feature/webcam-feed
-├── feature/hand-detection
-├── feature/gesture-recognition
-├── feature/browser-scroll
-├── feature/testing
-└── feature/packaging
+
+feature/project-setup
+feature/webcam-feed
+feature/hand-detection
+feature/gesture-recognition
+feature/browser-scroll
+feature/testing
+feature/packaging
+
+Workflow:
+
+Feature Branch
+→ Pull Request
+→ Develop
+→ Release
+→ Main
