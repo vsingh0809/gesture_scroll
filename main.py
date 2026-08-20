@@ -1,53 +1,45 @@
 import cv2
 
 from src.camera.webcam import Webcam
+from src.detection.detector import HandDetector
 from src.config.settings import camera_settings
-from src.utils.logger import get_logger
-
-
-logger = get_logger(__name__)
 
 
 def main():
 
-    logger.info("Application starting")
+    detector = HandDetector()
 
-    try:
+    with Webcam() as webcam:
 
-        with Webcam() as webcam:
+        while True:
 
-            logger.info(
-                f"Camera Resolution: "
-                f"{webcam.camera_info.width}x"
-                f"{webcam.camera_info.height}"
+            frame = webcam.read_frame()
+
+            rgb_frame = cv2.cvtColor(
+                frame,
+                cv2.COLOR_BGR2RGB,
             )
 
-            while True:
+            mp_result = detector.process(
+                rgb_frame
+            )
 
-                frame = webcam.read_frame()
+            detector.draw_landmarks(
+                frame,
+                mp_result,
+            )
 
-                cv2.imshow(
-                    camera_settings.WINDOW_NAME,
-                    frame,
-                )
+            cv2.imshow(
+                camera_settings.WINDOW_NAME,
+                frame,
+            )
 
-                key = cv2.waitKey(1) & 0xFF
+            key = cv2.waitKey(1) & 0xFF
 
-                if key == ord("q"):
-                    logger.info(
-                        "Exit requested by user"
-                    )
-                    break
+            if key == ord("q"):
+                break
 
-    except Exception as exc:
-
-        logger.exception(
-            f"Application failed: {exc}"
-        )
-
-    finally:
-
-        logger.info("Application shutdown")
+    detector.close()
 
 
 if __name__ == "__main__":
